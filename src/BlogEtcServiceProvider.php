@@ -16,6 +16,13 @@ class BlogEtcServiceProvider extends ServiceProvider
     public function boot()
     {
 
+       // for the admin backend views ( view("blogetc_admin::BLADEFILE") )
+       $this->loadViewsFrom(__DIR__ . "/Views/blogetc_admin", 'blogetc_admin');
+
+       // for public facing views (view("blogetc::BLADEFILE")):
+       // if you do the vendor:publish, these will be copied to /resources/views/vendor/blogetc anyway
+       $this->loadViewsFrom(__DIR__ . "/Views/blogetc", 'blogetc');
+
         if (config("blogetc.search.search_enabled") == false) {
             // if search is disabled, don't allow it to sync.
             ModelObserver::disableSyncingFor(BlogEtcPost::class);
@@ -56,12 +63,7 @@ class BlogEtcServiceProvider extends ServiceProvider
     public function register()
     {
 
-        // for the admin backend views ( view("blogetc_admin::BLADEFILE") )
-        $this->loadViewsFrom(__DIR__ . "/Views/blogetc_admin", 'blogetc_admin');
 
-        // for public facing views (view("blogetc::BLADEFILE")):
-        // if you do the vendor:publish, these will be copied to /resources/views/vendor/blogetc anyway
-        $this->loadViewsFrom(__DIR__ . "/Views/blogetc", 'blogetc');
     }
 
 }
