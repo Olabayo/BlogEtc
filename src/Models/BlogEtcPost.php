@@ -2,7 +2,7 @@
 
 namespace WebDevEtc\BlogEtc\Models;
 
-use App\User;
+//use App\User;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Swis\LaravelFulltext\Indexable;
@@ -99,7 +99,7 @@ class BlogEtcPost extends Model implements SearchResultInterface
      */
     public function author()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo($user_model = config('auth.providers.users.model', App\User::class), 'user_id');
     }
 
     /**

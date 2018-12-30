@@ -2,7 +2,7 @@
 
 namespace WebDevEtc\BlogEtc\Models;
 
-use App\User;
+//use App\User;
 use Illuminate\Database\Eloquent\Model;
 use WebDevEtc\BlogEtc\Scopes\BlogCommentApprovedAndDefaultOrderScope;
 
@@ -51,7 +51,7 @@ class BlogEtcComment extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(config('auth.providers.users.model', App\User::class));
     }
 
     /**
