@@ -11,8 +11,34 @@
            value='{{old("subtitle",$post->subtitle)}}'>
     <small id="blog_subtitle_help" class="form-text text-muted">The subtitle of the blog post (optional)</small>
 </div>
+@if(method_exists(Auth::user(), 'canAuthorBlogEtcPosts'))
+ @if(count(Auth::user()->canAuthorBlogEtcPosts()) > 0)
+<div class="form-group">
+    <label for="blog_author">Author</label>
 
-
+  <select name='blog_author' class='form-control' id='blog_author'
+                   aria-describedby='blog_author_help'>
+    @foreach(Auth::user()->canAuthorBlogEtcPosts() as  $item)
+         <!--
+          <option @if(old("is_published",$post->is_published) == '1') selected='selected' @endif value='1'>
+            Published
+         </option>
+        -->
+      @if($item->id == $post->author->id)
+       <option  selected='selected' value='{{ $item->id }}'>
+        {{ $item->email }}
+       </option>
+      @else
+       <option value='{{ $item->id }}'>
+        {{ $item->email }}
+      </option>
+      @endif
+    @endforeach
+  </select>
+    <small id="blog_author_help" class="form-text text-muted">The author of the blog (optional)</small>
+  </div>
+ @endif
+@endif
 <div class='row'>
 
 

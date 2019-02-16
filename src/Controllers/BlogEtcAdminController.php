@@ -113,10 +113,13 @@ class BlogEtcAdminController extends Controller
         /** @var BlogEtcPost $post */
         $post = BlogEtcPost::findOrFail($blogPostId);
         $post->fill($request->all());
-
         $this->processUploadedImages($request, $post);
 
         $post->save();
+        if($request->has('author')){
+          $post->user_id = $request->get('author');
+          $post->save();
+        }
         $post->categories()->sync($request->categories());
 
         Helpers::flash_message("Updated post");
